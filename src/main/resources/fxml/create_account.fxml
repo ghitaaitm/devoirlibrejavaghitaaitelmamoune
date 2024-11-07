@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.AddAccountController">
+    <Label text="Créer un Compte" style="-fx-font-size: 18px;" />
+    <TextField fx:id="numCompteField" promptText="Numéro de Compte" />
+    <DatePicker fx:id="dateCreaField" promptText="Date de Création" />
+    <TextField fx:id="deviseField" promptText="Devise" />
+    <Button text="Créer Compte" onAction="#handleCreateAccount" />
+</VBox>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.bank.controller.SearchTransactionController">
+    <TextField fx:id="transactionIdField" promptText="ID Transaction"/>
+    <TextField fx:id="clientIdField" promptText="ID Client"/>
+    <Button text="Rechercher" onAction="#handleSearchTransaction"/>
+    <ListView fx:id="transactionListView"/>
+</VBox>
