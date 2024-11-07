@@ -1,4 +1,5 @@
-package com.bank.utils ;
+package com.bank.utils;
+
 import com.bank.model.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -8,17 +9,17 @@ public class ClientJsonConverter {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    // Convertir un objet Client en JSON
+    // Convert Client object to JSON string
     public static String clientToJson(Client client) throws JsonProcessingException {
         return objectMapper.writeValueAsString(client);
     }
 
-    // Convertir un JSON en objet Client
+    // Convert JSON string to Client object
     public static Client jsonToClient(String json) throws JsonProcessingException {
         return objectMapper.readValue(json, Client.class);
     }
 
-    // Convertir un JSON en Client à partir de JsonNode (si nécessaire)
+    // Convert JsonNode to Client object
     public static Client jsonNodeToClient(JsonNode node) throws JsonProcessingException {
         return objectMapper.treeToValue(node, Client.class);
     }

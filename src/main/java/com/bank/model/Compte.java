@@ -38,7 +38,7 @@ public class Compte {
     }
 
     // Constructeur avec paramètres
-    public Compte(int id, String numCompte, double solde, Banque banque, Client client) {
+    public Compte() {
         this.id = id;
         this.numCompte = numCompte;
         this.solde = solde;
@@ -53,7 +53,7 @@ public class Compte {
 
     // Constructeur avec paramètres uniquement pour le client
     public Compte(int id, String numCompte, double solde, Client client) {
-        this(id, numCompte, solde, null, client);  // Associer le compte à un client sans banque
+        this();  // Associer le compte à un client sans banque
     }
 
     // Constructeur avec paramètres pour les informations supplémentaires

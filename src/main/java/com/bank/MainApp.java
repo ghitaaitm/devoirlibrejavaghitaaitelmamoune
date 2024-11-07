@@ -77,6 +77,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void handleSearchClient(ActionEvent event) {
         String clientIdStr = clientIdField.getText();
@@ -104,7 +105,6 @@ public class MainApp extends Application {
                     return;
                 }
             } else {
-                // Show error message for invalid integer input
                 showAlert("Erreur", "L'ID client doit être un nombre valide !");
                 return;
             }
@@ -128,7 +128,22 @@ public class MainApp extends Application {
         return true;
     }
 
+    private void searchClientInList(int clientId, String numCompte) {
+        boolean found = false;
 
+        for (Client client : clients) {
+            if ((clientId != -1 && client.getId() == clientId) ||
+                    (!numCompte.isEmpty() && client.getNumCompte().equals(numCompte))) {
+                showAlert("Succès", "Client trouvé : " + client.getNom() + " " + client.getPrenom());
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            showAlert("Erreur", "Client non trouvé.");
+        }
+    }
 
     @FXML
     public void handleSearchTransaction(ActionEvent event) {
@@ -147,24 +162,7 @@ public class MainApp extends Application {
             }
             searchTransactionInList(transactionId);
         } catch (NumberFormatException e) {
-            showAlert("Erreur", "Saisie erronée !");
-        }
-    }
-
-    private void searchClientInList(int clientId, String numCompte) {
-        boolean found = false;
-
-        for (Client client : clients) {
-            if ((clientId != -1 && client.getId() == clientId) ||
-                    (!numCompte.isEmpty() && client.getNumCompte().equals(numCompte))) {
-                showAlert("Succès", "Client trouvé : " + client.getNom() + " " + client.getPrenom());
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            showAlert("Erreur", "Client non trouvé.");
+            showAlert("Erreur", "Saisie erronée ! L'ID de transaction doit être un nombre valide.");
         }
     }
 
@@ -208,7 +206,8 @@ public class MainApp extends Application {
     }
 
     private boolean isValidNumCompte(String numCompte) {
-        return numCompte != null && !numCompte.trim().isEmpty() && numCompte.length() >= 10;
+        // Validation simple que le numéro de compte contient uniquement des chiffres et est d'au moins 10 caractères
+        return numCompte != null && numCompte.matches("\\d{10,}"); // 10 chiffres ou plus
     }
 
     public static void main(String[] args) {

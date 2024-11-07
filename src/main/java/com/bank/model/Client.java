@@ -1,5 +1,8 @@
 package com.bank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -15,18 +18,38 @@ import lombok.ToString;
 @ToString
 public class Client {
 
+    @JsonProperty("id")
     private int id; // Identifiant unique du client
+
+    @JsonProperty("numClient")
     private String numClient;  // Numéro de client unique
+
+    @JsonProperty("nom")
     private String nom;        // Nom du client
+
+    @JsonProperty("prenom")
     private String prenom;     // Prénom du client
+
+    @JsonProperty("adresse")
     private String adresse;    // Adresse du client
+
+    @JsonProperty("phone")
     private String phone;      // Numéro de téléphone
+
+    @JsonProperty("email")
     private String email;      // Email du client
+
+    @JsonProperty("comptes")
     private List<Compte> comptes = new ArrayList<>();  // Liste des comptes associés au client
+
+    @JsonIgnore
     private Banque banque;  // Banque associée au client
 
-    // Constructeur complet (avec tous les paramètres)
-    public Client(int id, String numClient, String nom, String prenom, String adresse, String phone, String email, Banque banque, List<Compte> comptes) {
+    @JsonIgnore
+    private String numCompte; // Ce champ peut être ignoré s'il n'est pas nécessaire
+
+    // Constructeur pour un client avec seulement les informations essentielles
+    public Client(int id, String numClient, String nom, String prenom, String adresse, String phone, String email) {
         this.id = id;
         this.numClient = numClient;
         this.nom = nom;
@@ -34,38 +57,8 @@ public class Client {
         this.adresse = adresse;
         this.phone = phone;
         this.email = email;
-        this.banque = banque;
-        this.comptes = (comptes != null) ? comptes : new ArrayList<>();
+        this.comptes = new ArrayList<>(); // Initialiser la liste des comptes vide
     }
-
-    // Constructeur sans la liste des comptes (initialisation vide de comptes)
-    public Client(int id, String numClient, String nom, String prenom, String adresse, String phone, String email, Banque banque) {
-        this(id, numClient, nom, prenom, adresse, phone, email, banque, new ArrayList<>());
-    }
-
-    // Constructeur pour un client sans banque (par défaut null) et sans liste de comptes (initialisation vide)
-    public Client(int id, String numClient, String nom, String prenom, String adresse, String phone, String email) {
-        this(id, numClient, nom, prenom, adresse, phone, email, null, new ArrayList<>());
-    }
-
-    // Constructeur pour un client avec seulement les informations de base
-    public Client(int id, String numClient, String nom, String prenom, String adresse) {
-        this(id, numClient, nom, prenom, adresse, "", "", null, new ArrayList<>());
-    }
-
-    // Constructeur sans email, mais avec banque et autres informations
-    public Client(String numClient, String nom, String prenom, String adresse, String phone, String email, Banque banque) {
-        this(0, numClient, nom, prenom, adresse, phone, email, banque, new ArrayList<>());
-    }
-    // Constructor
-    public Client(String nom, String prenom, String adresse, String phone, Banque banque) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.phone = phone;
-        this.banque = banque;
-    }
-
 
     // Méthode pour ajouter un compte à la liste des comptes du client
     public void addCompte(Compte compte) {
@@ -74,7 +67,8 @@ public class Client {
         }
     }
 
+    // Méthode pour obtenir un numéro de compte (si nécessaire)
     public Object getNumCompte() {
-        return null;
+        return this.numCompte;  // Retourne le numCompte
     }
 }

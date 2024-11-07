@@ -18,7 +18,7 @@ public final class Transaction {
     private final Set<Compte> comptesSource;  // Immutable set of source accounts
     private final Set<Compte> comptesDest;    // Immutable set of destination accounts
     private final long clientId;
-    private final Comparable<String> date;
+    private Comparable<String> date;
     private Set<Compte> comptes;        // Immutable set of all accounts involved
     private double amount;// Amount of the transaction
     private double montant ;
@@ -76,6 +76,7 @@ public final class Transaction {
         this.clientId = 0;
     }
 
+
     // Constructor to initialize transaction with source and destination accounts
     public Transaction(TypeTransaction type, Set<Compte> comptesSource, Set<Compte> comptesDest) {
         this.id = String.valueOf(generateUniqueTransactionId());
@@ -108,6 +109,18 @@ public final class Transaction {
     public String getDetails() {
         return "";
     }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setDescription(String transactionDeTest) {
+    }
+
 
 
     // Enumeration of transaction types

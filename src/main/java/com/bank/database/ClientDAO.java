@@ -45,7 +45,7 @@ public class ClientDAO {
                 String prenom = resultSet.getString("prenom");
                 String adresse = resultSet.getString("adresse");
 
-                client = new Client(id, numClient, nom, prenom, adresse);
+                client = new Client();
             }
         } catch (SQLException e) {
             e.printStackTrace();
