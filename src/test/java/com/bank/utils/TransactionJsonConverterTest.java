@@ -1,8 +1,8 @@
 package com.bank.utils;
 
 import com.bank.model.Transaction;
-import com.bank.model.Transaction.TypeTransaction;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,31 +12,38 @@ public class TransactionJsonConverterTest {
 
     @Test
     public void testTransactionToJson() throws JsonProcessingException {
-        // Créer un objet Transaction pour le test en utilisant le constructeur
-        Transaction transaction = new Transaction(1, 200.0, TypeTransaction.VIRIN, "2024-11-07", 12345);
+        // Create a Transaction instance with the default constructor
+        Transaction transaction = new Transaction();
 
-        // Convertir en JSON
+        // Convert to JSON
         String json = TransactionJsonConverter.transactionToJson(transaction);
 
-        // Vérifier que le JSON n'est pas nul et contient des données attendues
+        // Verify that JSON is not null
         assertNotNull(json);
-        System.out.println("JSON produit: " + json);
-        assertEquals("{\"id\":\"1\",\"montant\":200.0,\"date\":\"2024-11-07\",\"description\":\"Transaction de test\"}", json);
+        System.out.println("Generated JSON: " + json);
+
+        // Expected JSON structure
+        String expectedJson = "{\"id\":\"1\",\"type\":\"VIRIN\",\"montant\":200.0,\"date\":\"2024-11-07\",\"reference\":\"TX-123456789\",\"clientId\":12345}";
+
+        // Parse both JSON strings to compare as JSON objects
+        ObjectMapper mapper = new ObjectMapper();
+        assertEquals(mapper.readTree(expectedJson), mapper.readTree(json));
     }
 
     @Test
     public void testJsonToTransaction() throws JsonProcessingException {
-        // JSON pour le test
-        String json = "{\"id\":\"1\",\"montant\":200.0,\"date\":\"2024-11-07\",\"description\":\"Transaction de test\"}";
+        // JSON for the test
+        String json = "{\"id\":\"1\",\"type\":\"VIRIN\",\"montant\":200.0,\"date\":\"2024-11-07\",\"reference\":\"TX-123456789\",\"clientId\":12345}";
 
-        // Convertir le JSON en objet Transaction
+        // Convert JSON to Transaction object
         Transaction transaction = TransactionJsonConverter.jsonToTransaction(json);
 
-        // Vérifier que l'objet Transaction est bien construit
+        // Verify the Transaction object is correctly constructed
         assertNotNull(transaction);
         assertEquals("1", transaction.getId());
         assertEquals(200.0, transaction.getMontant(), 0.001);
         assertEquals("2024-11-07", transaction.getDate());
-        assertEquals("Transaction de test", transaction.getDetails());
+        assertEquals("TX-123456789", transaction.getReference());
+        assertEquals(12345, transaction.getClientId());
     }
 }

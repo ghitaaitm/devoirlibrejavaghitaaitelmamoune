@@ -2,7 +2,7 @@
   <configuration default="false" name="Unnamed" type="JUnit" factoryName="JUnit">
     <module name="TransactionBancaireDevoirLibre" />
     <option name="PACKAGE_NAME" value="com.bank.utils" />
-    <option name="MAIN_CLASS_NAME" value="com.bank.utils.ClientJsonConverterTest" />
+    <option name="MAIN_CLASS_NAME" value="com.bank.utils.TransactionJsonConverterTest" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
     <method v="2">
